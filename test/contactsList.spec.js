@@ -37,3 +37,26 @@ describe('GET /contacts',()=>{
       })
     })
     })
+
+    describe('POST /contacts',()=>{
+        it('Post id:12 and status 201 if ok ',(done)=>{
+          request(router).post('/contacts')
+          .send([
+                {id:12,name:'Nattapong',email:'58160388@go.buu.ac.th',phone: '087-483-6561',url:'www.gojav.com' ,notes:'i love you' },
+               
+               ])
+          .expect(201)
+          .then((res)=>{
+            let contact = res.body
+            let contacts = contact[0]
+           expect(contact).toBeDefined()
+           expect(contacts.id).toBe(12)
+           expect(contacts.name).toBe('Nattapong')
+           expect(contacts.email).toBe('58160388@go.buu.ac.th')
+           expect(contacts.phone).toBe('087-483-6561')
+           expect(contacts.url).toBe('www.gojav.com')
+           expect(contacts.notes).toBe('i love you')
+            done()
+         })
+       })
+      })
