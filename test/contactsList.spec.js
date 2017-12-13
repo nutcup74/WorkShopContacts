@@ -60,3 +60,25 @@ describe('GET /contacts',()=>{
          })
        })
       })
+
+      describe('PUT /contacts',()=>{
+        it('Put id:12 go id:1 if ok status 200',(done)=>{
+          request(router).put('/contacts/1')
+          .send({id:12,name:"Don'tShootME",email:'58160388@go.buu.ac.th',phone: '087-483-6561',url:'www.gojav.com' ,notes:'i love you 2' })
+          .expect(200)
+          .then((res)=>{
+            request(router).get('/contacts/1')
+            .then((res)=>{
+              let contact = res.body
+              expect(contact).toBeDefined()
+              expect(contact.id).toBe(12)
+              expect(contact.name).toBe("Don'tShootME")
+              expect(contact.email).toBe('58160388@go.buu.ac.th')
+              expect(contact.phone).toBe('087-483-6561')
+              expect(contact.url).toBe('www.gojav.com')
+              expect(contact.notes).toBe('i love you 2')
+            })
+            done()
+          })
+        })
+      })
